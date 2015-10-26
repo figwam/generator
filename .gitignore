@@ -1,0 +1,15 @@
+bin/
+target/
+temp/
+project/project/
+node_modules/
+.target
+.idea
+.settings
+.project
+.classpath
+.DS_Store
+logs
+gymix.iml
+.cache-main
+.tern-project

@@ -1,0 +1,7 @@
+New log file opened at Sun Oct 04 11:02:23 CEST 2015 by 49620@Alexs-Air.home
+Taking next connection to: 52910
+New client attempting to connect on port: 52914-52910
+  Address = /192.168.1.142:52910
+This client on port 52914 has uuid c8a81a72-6aff-49c0-90f5-9099da273fea configName activator humanReadableName Activator protocolVersion 3 featureTags Vector()
+Connected Clients: activator-c8a81a72-6aff-49c0-90f5-9099da273fea
+Taking next connection to: 52910

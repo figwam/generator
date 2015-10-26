@@ -1,0 +1,119 @@
+# Messages
+
+brand=Gymix
+welcome=Willkommen to Gymix
+welcome.title=Sportabo so flexibel wie noch nie
+welcome.subtext.1=Das flexibelste und einfachste Sportabonnement in der Region Bern.
+welcome.subtext.2=Entscheiden Sie selbst wann, wohin und welchen Sport Sie besuchen möchten
+menu.gymix=Was ist Gymix
+menu.advantages=Ihre Vorteile
+menu.pricing=Preise
+menu.studios=Studios
+menu.followus=Folge uns
+welcome.get.member=Sportkurs beginnen
+section.whoweare.title=Was ist Gymix?
+
+section.whoweare.text=Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+section.advantages.title=Ihre Vorteile
+section.advantages.text=Profesionelle Trainer, Sportvielfalt, Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+section.advantages.1=Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. 
+section.advantages.2=Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+
+
+section.studios.title=Sportstudios
+section.studios.text=Im Moment kooperieren wir mit den Sportstudios der Region Bern. Das Angebot wird stets erweitert. 
+
+##############
+# Angebote
+section.pricing.title=Unsere Preise
+section.pricing.signup=Auswählen
+section.pricing.signup.title=Abo wählen
+section.pricing.small.id=c56f5b50-7622-4186-9f44-c8b6bea8109a
+section.pricing.small=Basis
+section.pricing.small.price=CHF 59
+section.pricing.medium.id=5325c71f-4e9e-4480-9f4d-b74a66a5b1ca
+section.pricing.medium=Standard
+section.pricing.medium.price=CHF 89
+section.pricing.large.id=58f2fea6-0e47-4caf-ab72-9a356f122457
+section.pricing.large=Premium
+section.pricing.large.price=CHF 119
+section.pricing.selected=Ausgewähltes Abo
+
+section.pricing.basic.1=Eintritte
+#section.pricing.basic.2=Eintritte im selben Studio
+section.pricing.basic.3=Jederzeit Abostop möglich
+section.pricing.basic.4=Jederzeit kündbar
+#4,2 6,4 8,6
+
+###########
+# Simple words
+word.monthly=monatlich
+word.change=ändern
+word.next=Weiter
+word.back=Zurück
+
+
+view.index.title=Gymix
+sign.up=Registrieren
+sign.in=Einloggen
+sign.out=Abmelden
+sign.in.credentials=Logge dich mit deinem Account ein
+remember.me=Eingeloggt bleiben
+not.a.member=Noch nicht angemeldet?
+sign.up.now=Registrieren
+sign.up.account=Bei Gymix registrieren
+firstname=Vorname
+lastname=Nachname
+street=Strasse und Hausnummer
+zip=PLZ
+state=Kanton
+city=Stadt
+email=E-Mail
+password=Passwort
+password.validate=Passwort Bestätigung
+already.a.member=Bereits registriert?
+sign.in.now=Logge dich jetzt ein
+
+#overide messages
+error.required=Bitte füllen Sie alle Felder richtig aus
+error.email=Bitte valide E-Mail Adresse eingeben
+error.pattern=Ungültige Eingabe
+password.not.match=Bitte geben Sie zwei mal dasselbe Passwort ein
+invalid.credentials=Login fehlgeschlagen: E-Mail und Passwort Kombination ist falsch
+trainee.exists=Benutzer mit dieser E-Mail Adresse ist bereits registriert
+invalid.data=Bitte überprüfen sie die Eingabe Ihrer Daten
+
+word.welcome=Willkommen
+
+
+search.clazz=Sportkurs suchen
+search.clazz.filter=Sportkurse filtern
+search.go=Los!
+clazz.book=Anmelden
+clazz.cancel=Abmelden
+clazz.booked.out=Ausgebucht
+search.result=Suchresultate
+#search.result.amount={0,choice,0#Keine Sportkurse|1#Ein Sportkurs|1<{0,number,integer} Sportkurse wurden} gefunden
+search.result.amount=Sportkurse wurden gefunden
+
+######
+# Footer
+contact=Kontakt
+agb=AGB
+disclaimer=Disclaimer
+impressum=Impressum
+
+######
+# Dashboard
+my.dashboard=Mein Gymix
+my.dashboard.breadcrumb=Eingeloggt als
+my.profile=Mein Profil
+my.clazzes=Meine Sportkurse
+my.home=Meine Startseite
+my.abo=Mein Abo
+all.clazzes=Sportkurse suchen
+my.bill=Meine Rechnungen
+
+
+
