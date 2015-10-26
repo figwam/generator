@@ -3,6 +3,7 @@ target/
 temp/
 project/project/
 node_modules/
+.sbtserver
 .target
 .idea
 .settings
