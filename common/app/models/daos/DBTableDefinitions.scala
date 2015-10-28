@@ -110,19 +110,29 @@ trait DBTableDefinitions {
     id: Option[UUID],
     amount: scala.math.BigDecimal,
     createdOn: java.sql.Timestamp,
-    vat: Short,
-    idTrainee: UUID
+    vat: scala.math.BigDecimal,
+    periodStart: java.sql.Timestamp,
+    periodEnd: java.sql.Timestamp,
+    paidAt: Option[java.sql.Timestamp],
+    paymentTransactionId: Option[String],
+    paymentStatus: Option[String],
+    idSubscription: UUID
     )
 
 
   class Bills(_tableTag: Tag) extends Table[DBBill](_tableTag, "bill") {
-    def * = (id, amount, createdOn, vat, idTrainee) <> (DBBill.tupled, DBBill.unapply)
+    def * = (id, amount, createdOn, vat, periodStart, periodEnd, paidAt, paymentTransactionId, paymentStatus, idSubscription) <> (DBBill.tupled, DBBill.unapply)
     val id: Rep[Option[UUID]] = column[Option[UUID]]("id", O.PrimaryKey, O.AutoInc)
     val amount: Rep[scala.math.BigDecimal] = column[scala.math.BigDecimal]("amount")
     val createdOn: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("created_on")
-    val vat: Rep[Short] = column[Short]("vat")
-    val idTrainee: Rep[UUID] = column[UUID]("id_trainee")
-    lazy val traineeFk = foreignKey("trainee_fk", idTrainee, slickTrainees)(r => r.id.get, onUpdate=ForeignKeyAction.Cascade, onDelete=ForeignKeyAction.SetNull)
+    val vat: Rep[scala.math.BigDecimal] = column[scala.math.BigDecimal]("vat")
+    val periodStart: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("period_start")
+    val periodEnd: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("period_end")
+    val paidAt: Rep[Option[java.sql.Timestamp]] = column[Option[java.sql.Timestamp]]("paid_at")
+    val paymentTransactionId: Rep[Option[String]] = column[Option[String]]("payment_transaction_id")
+    val paymentStatus: Rep[Option[String]] = column[Option[String]]("payment_status")
+    val idSubscription: Rep[UUID] = column[UUID]("id_subscription")
+    lazy val subscriptionFk = foreignKey("trainee_fk", idSubscription, slickSubscriptions)(r => r.id.get, onUpdate=ForeignKeyAction.Cascade, onDelete=ForeignKeyAction.SetNull)
   }
 
 

@@ -181,7 +181,6 @@ CREATE TABLE public.offer(
 	updated_on timestamp NOT NULL DEFAULT NOW(),
 	name text NOT NULL,
 	nr_access smallint NOT NULL,
-	nr_access_same smallint NOT NULL,
 	price decimal(5,2) NOT NULL,
 	is_deleted bool NOT NULL DEFAULT false
 );
@@ -364,13 +363,18 @@ CREATE TABLE public.bill(
 	id uuid primary key NOT NULL DEFAULT uuid_generate_v4(),
 	amount decimal(5,2) NOT NULL,
 	created_on timestamp NOT NULL DEFAULT NOW(),
-	vat smallint NOT NULL,
-	id_trainee uuid
+	vat decimal(5,2) NOT NULL,
+	period_start timestamp NOT NULL,
+	period_end timestamp NOT NULL,
+	paid_at timestamp,
+	payment_transaction_id text,
+	payment_status text,
+	id_subscription uuid
 ); 
 
 -- ALTER TABLE public.bill DROP CONSTRAINT IF EXISTS trainee_fk CASCADE;
-ALTER TABLE public.bill ADD CONSTRAINT trainee_fk FOREIGN KEY (id_trainee)
-REFERENCES public.trainee (id) MATCH FULL
+ALTER TABLE public.bill ADD CONSTRAINT subscription_fk FOREIGN KEY (id_subscription)
+REFERENCES public.subscription (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 
 --  888      .d88888b.   .d8888b.  8888888 888b    888      88888888888     d8888 888888b.   888      8888888888 .d8888b.

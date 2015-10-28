@@ -4,13 +4,14 @@
     <div class="col-lg-12">
         <div class="row">
             <div class="col-md-12">
-                <h2 class="lead"><strong class="text-danger">
-                    {{myClazzes.total}}&nbsp;</strong>@Messages("search.result.amount")</h2>
+                <h2 ng-if="myClazzes.total > 0"class="lead"><strong class="text-danger">
+                    {{myClazzes.total}}&nbsp;</strong>@Messages("my.clazzes.current")</h2>
+                <h2 ng-if="myClazzes.total <= 0"class="lead">@Messages("my.clazzes.no.current")</h2>
             </div>
         </div><!-- /.row -->
 
 
-        <article class="search-result row" dir-paginate="(key, item) in myClazzes.items | itemsPerPage: 10" total-items="totalClazzes" current-page="pagination.current">
+        <article class="search-result row" dir-paginate="(key, item) in myClazzes.items | itemsPerPage: 10" total-items="myTotalClazzes" current-page="pagination.current">
             <hr>
             <div class="col-xs-12 col-sm-12 col-md-3">
                 <a href="#" title="{{item.name}}" class="thumbnail"><img src="{{item.avatarurl}}" alt="Lorem ipsum" /></a>

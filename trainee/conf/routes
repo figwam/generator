@@ -15,7 +15,8 @@ GET           /clazzes/trainees/me                   controllers.ApplicationCont
 GET          /trainees/me/registrationsCount       controllers.RegistrationController.countByTrainee
 POST          /trainees/me/registrations             controllers.RegistrationController.create
 DELETE        /trainees/me/registrations/:id         controllers.RegistrationController.delete(id: String)
-GET          /trainees/me/clazzes                    controllers.ApplicationController.clazzesPersonalizedMy(p:Int ?= 0, s:Int ?= 1, f ?= "")
+#1420066800000 = 01.01.2015 00:00:00 LocalTime, see http://currentmillis.com/
+GET          /trainees/me/clazzes                    controllers.ApplicationController.clazzesPersonalizedMy(p:Int ?= 0, s:Int ?= 1, f ?= "", sf:Long ?= 1420066800000L)
 
 GET           /signOut                               controllers.ApplicationController.signOut
 POST          /signIn                                controllers.CredentialsAuthController.authenticate

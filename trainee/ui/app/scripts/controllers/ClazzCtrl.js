@@ -8,7 +8,6 @@
  */
 app.controller('ClazzCtrl', ['$rootScope', '$scope', '$http', '$location', '$templateCache','ClazzFactory', function($rootScope, $scope, $http, $templateCache, $location, ClazzFactory) {
 
-
   $scope.totalClazzes = 0;
   $scope.clazzesPerPage = 10;
   getResultsPage(1)

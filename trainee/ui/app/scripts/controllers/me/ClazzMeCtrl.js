@@ -8,7 +8,6 @@
  */
 app.controller('ClazzMeCtrl', ['$rootScope', '$state', '$scope', '$http', '$templateCache', 'AlertFactory', function($rootScope, $state, $scope, $http, $templateCache, AlertFactory) {
 
-
   $scope.totalClazzes = 0;
   $scope.clazzesPerPage = 10;
   getResultsPage(1)
@@ -28,6 +27,7 @@ app.controller('ClazzMeCtrl', ['$rootScope', '$state', '$scope', '$http', '$temp
     getResultsPage(newPage);
   };
 
+
   function getResultsPage(pageNumber) {
     //play start paging from 0 --> (pageNumber-1)
     $http.get('/clazzes/trainees/me?p='+(pageNumber-1)+'&s=1&f='+($rootScope.clazzesSearchString == null ? '':$rootScope.clazzesSearchString))
@@ -43,11 +43,12 @@ app.controller('ClazzMeCtrl', ['$rootScope', '$state', '$scope', '$http', '$temp
 
   function getMyClazzesResultsPage(pageNumber) {
     //play start paging from 0 --> (pageNumber-1)
-    $http.get('/trainees/me/clazzes?p='+(pageNumber-1)+'&s=1&f=')
+    $http.get('/trainees/me/clazzes?p='+(pageNumber-1)+'&s=1&f=&sf='+new Date().getTime())
       .then(function(result) {
         $scope.myClazzes = result.data
         $scope.myTotalClazzes = result.data.total
       });
+
   }
 
   $scope.book = function(idClazz) {

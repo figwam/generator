@@ -9,9 +9,11 @@ case class Bill(
                   id: Option[UUID],
                   amount: scala.math.BigDecimal,
                   createdOn: Calendar,
-                  vat: Short,
+                  vat: scala.math.BigDecimal,
+                  periodStart: Calendar,
+                  periodEnd: Calendar,
+                  paidAt: Option[Calendar],
                   idTrainee: Long)
-
 
 /**
  * The companion object.

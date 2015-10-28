@@ -11,4 +11,5 @@ app.controller('DashboardCtrl', ['$rootScope', '$scope', '$http', 'ClazzFactory'
   RegistrationFactory.getRegistrationsCount();
   ClazzFactory.getClazzCount();
 
+
 }]);

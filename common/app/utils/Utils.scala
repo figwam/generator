@@ -2,10 +2,12 @@ package utils
 
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
-import java.util.{GregorianCalendar, UUID, Calendar}
+import java.util
+import java.util.{GregorianCalendar, Calendar}
 
+import org.joda.time.DateTime
 import models.Recurrence.Recurrence
-import models.{Bill, Recurrence, Clazz, ClazzDefinition}
+import models._
 import play.Logger
 import play.api.libs.json.{JsString, JsSuccess, JsValue, Format}
 
@@ -39,6 +41,14 @@ object Utils {
     }
   }
 
+  final def calculatePeriods(createdOn: Calendar) : List[Period] = {
+    def dateRange(start: DateTime, end: DateTime, step: org.joda.time.Period): Iterator[DateTime] =
+      Iterator.iterate(start)(_.plus(step)).takeWhile(!_.isAfter(end))
+    val start = new DateTime().withMillis(createdOn.getTimeInMillis)
+    val end = new DateTime()
+    val range = dateRange(start, end, new org.joda.time.Period().withMonths(1))
+    range.toList.map(x => Period(x.toGregorianCalendar,x.plusMonths(1).toGregorianCalendar))
+  }
 
   final def asCalendar (ts: Timestamp): Calendar = {val c = new GregorianCalendar(); c.setTime(ts);c}
   final def asTimestamp (c: Calendar): Timestamp = new Timestamp(c.getTimeInMillis)

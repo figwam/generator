@@ -40,9 +40,10 @@ trait ClazzDAO  {
    * @param orderBy
    * @param filter
    * @param idTrainee
+   * @param startFrom
    * @return
    */
-  def listPersonalizedMy(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%", idTrainee: UUID): Future[Page]
+  def listPersonalizedMy(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%", idTrainee: UUID, startFrom: Timestamp): Future[Page]
   //  def findById(id: Long): Future[Clazz]
   def count: Future[Int]
 
@@ -58,13 +59,12 @@ class ClazzDAOImpl @Inject() (protected val dbConfigProvider: DatabaseConfigProv
 
   private def countMy(filter: String, idTrainee: UUID): Future[Int] = {
     val action = (for {
-      registration <- slickRegistrations
-        .filter(_.idTrainee === idTrainee)
-      clazz <-  slickClazzViews
+      registration <- slickRegistrations.filter(_.idTrainee === idTrainee)
+      clazz <- slickClazzes.filter(_.id === registration.idClazz)
+      clazzView <- slickClazzViews
         .filter(_.startFrom >= new Timestamp(System.currentTimeMillis()))
-        .filter(_.searchMeta.toLowerCase like filter.toLowerCase)
-        .filter(_.id === registration.idClazz)
-      } yield (clazz))
+        .filter(_.searchMeta.toLowerCase like filter.toLowerCase) if clazzView.id === registration.idClazz
+    } yield (registration))
     db.run(action.length.result)
   }
 
@@ -150,18 +150,18 @@ class ClazzDAOImpl @Inject() (protected val dbConfigProvider: DatabaseConfigProv
     }.flatMap (c3 => totalRows.map (rows => Page(c3, page, offset.toLong, rows.toLong)))
   }
 
-  override def listPersonalizedMy(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%", idTrainee: UUID): Future[Page] = {
+  override def listPersonalizedMy(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%", idTrainee: UUID, startFrom: Timestamp): Future[Page] = {
     val offset = if (page > 0) pageSize * page else 0
 
     val action = (for {
       registration <- slickRegistrations.filter(_.idTrainee === idTrainee)
       clazz <- slickClazzes.filter(_.id === registration.idClazz)
-      clazzView <- slickClazzViews.filter(_.id === registration.idClazz)
+      clazzView <- slickClazzViews
         .sortBy(r => orderBy match {case 1 => r.startFrom case _ => r.startFrom})
-        .filter(_.startFrom >= new Timestamp(System.currentTimeMillis()))
-        .filter(_.searchMeta.toLowerCase like filter.toLowerCase)
+        .filter(_.startFrom >= startFrom)
+        .filter(_.searchMeta.toLowerCase like filter.toLowerCase) if clazzView.id === registration.idClazz
     } yield (clazzView, registration)).drop(offset).take(pageSize)
-    val totalRows = count(filter)
+    val totalRows = countMy(filter, idTrainee)
 
 
     val result = db.run(action.result)

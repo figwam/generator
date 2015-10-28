@@ -11,7 +11,7 @@ import play.api.db.slick.DatabaseConfigProvider
 import scala.concurrent.Future
 
 
-import utils.Utils.asCalendar
+import utils.Utils._
 
 /**
  * Give access to the trainee object using Slick
@@ -33,7 +33,7 @@ class TraineeDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigPro
       dbTraineeLoginInfo <- slickTraineeLoginInfos.filter(_.idLoginInfo === dbLoginInfo.id)
       dbTrainee <- slickTrainees.filter(_.id === dbTraineeLoginInfo.idTrainee)
       dbAddress <- slickAddresses.filter(_.id === dbTrainee.idAddress)
-      dbSubscription <- slickSubscriptions.filter(_.idTrainee === dbTrainee.id)
+      dbSubscription <- slickSubscriptions.filter(_.idTrainee === dbTrainee.id).filter(_.isActive === true)
       dbOffer <- slickOffers.filter(_.id === dbSubscription.idOffer)
     } yield (dbTrainee, dbLoginInfo, dbAddress, dbSubscription, dbOffer)
     db.run(query.result.headOption).map { resultOption =>
@@ -66,6 +66,7 @@ class TraineeDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigPro
             Some(Subscription(
               subscription.id,
               subscription.isActive,
+              asCalendar(subscription.createdOn),
               subscription.canceledOn match { case Some(c) => Some(asCalendar(c)) case _ => None},
               Offer(
                 offer.id,
