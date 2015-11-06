@@ -7,13 +7,10 @@
  */
 app.controller('HomeCtrl', ['$rootScope', '$scope', '$state', '$location', '$anchorScroll', function($rootScope, $scope, $state, $location, $anchorScroll) {
 
-
-
-
   // calling our submit function.
   $scope.submitSearchRedirect = function () {
     $rootScope.clazzesSearchString = $scope.searchString
-    $state.go('home.clazzes')
+    $state.go('.clazzes')
   };
 
   // calling our submit function.

@@ -11,7 +11,7 @@ import play.api.db.slick.DatabaseConfigProvider
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
-import utils.Utils.{asTimestamp, asCalendar}
+import utils.Utils._
 
 trait OfferDAO  {
 
@@ -28,7 +28,7 @@ class OfferDAOImpl @Inject() (protected val dbConfigProvider: DatabaseConfigProv
   override def list(): Future[List[Offer]] = {
     db.run(slickOffers.filter(_.isDeleted === false).result)
       .map{ offers =>
-        offers.toList.map(offer => Offer(offer.id, offer.name, offer.nrAccess, offer.nrAccessSame, offer.price))
-    }
+        offers.toList.map(offer => Offer(offer.id, offer.name, offer.nrAccess, offer.price, offer.priceTimestop, asDatetime(offer.createdOn)))
+      }
   }
 }

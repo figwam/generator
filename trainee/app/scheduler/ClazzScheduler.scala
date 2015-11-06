@@ -29,7 +29,7 @@ class ClazzScheduler @Inject() (clazzDAO: ClazzDAO, clazzDefinitionDAO: ClazzDef
 
   override def preStart(): Unit = {
     import scala.concurrent.duration._
-    lazy val refreshInterval:Int = Play.application().configuration().getString("clazz.definition.refresh.intervall").toInt
+    lazy val refreshInterval:Int = 3600 //Play.application().configuration().getString("clazz.definition.refresh.intervall").toInt
     scheduler = context.system.scheduler.schedule(
       initialDelay = refreshInterval.seconds,
       interval = refreshInterval.seconds,
@@ -47,7 +47,7 @@ class ClazzScheduler @Inject() (clazzDAO: ClazzDAO, clazzDefinitionDAO: ClazzDef
   def receive = {
     case CREATE_CLAZZES =>
       try {
-        lazy val seeInAdvanceDays = Play.application().configuration().getString("days.see.clazzes.in.advance").toInt
+        lazy val seeInAdvanceDays = 50 //Play.application().configuration().getString("days.see.clazzes.in.advance").toInt
         val clazzes =  clazzDefinitionDAO.listActive()
         Logger.debug("Execute Cron "+CREATE_CLAZZES+":"+Json.toJson(clazzes))
         clazzes.map { clazzDef =>

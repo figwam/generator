@@ -5,7 +5,8 @@ import java.text.SimpleDateFormat
 import java.util
 import java.util.{GregorianCalendar, Calendar}
 
-import org.joda.time.DateTime
+import org.joda.time.format.{DateTimeFormatter, ISODateTimeFormat}
+import org.joda.time.{DateTimeZone, DateTime}
 import models.Recurrence.Recurrence
 import models._
 import play.Logger
@@ -32,6 +33,18 @@ object Utils {
     }
 
 
+
+    implicit object datetimeFormat extends Format[DateTime] {
+      //val format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SS'Z'")
+      val format: DateTimeFormatter = ISODateTimeFormat.dateTime().withZone(DateTimeZone.getDefault())
+      def reads(json: JsValue) = {
+        val str = json.as[String]
+        JsSuccess(new DateTime(format.parseDateTime(str)))
+      }
+      def writes(c: DateTime) = JsString(format.print(c))
+    }
+
+
     implicit object recurrenceFormat extends Format[Recurrence] {
       def reads(json: JsValue) = {
         val str = json.as[String]
@@ -52,6 +65,10 @@ object Utils {
 
   final def asCalendar (ts: Timestamp): Calendar = {val c = new GregorianCalendar(); c.setTime(ts);c}
   final def asTimestamp (c: Calendar): Timestamp = new Timestamp(c.getTimeInMillis)
+
+  final def asDatetime (ts: Timestamp): DateTime = {new DateTime(ts)}
+  final def asTimestamp (c: DateTime): Timestamp = new Timestamp(c.getMillis)
+
 
   /**
    * This method calculates the next classes from class definition. Class definition are usually

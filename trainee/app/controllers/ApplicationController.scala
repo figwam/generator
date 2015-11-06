@@ -9,7 +9,7 @@ import com.mohiva.play.silhouette.api.{ Environment, LogoutEvent, Silhouette }
 import com.mohiva.play.silhouette.impl.authenticators.JWTAuthenticator
 import com.mohiva.play.silhouette.impl.providers.SocialProviderRegistry
 import models._
-import models.daos.{RegistrationDAO, OfferDAO, TraineeDAO, ClazzDAO}
+import models.daos._
 import play.Play
 import play.api.Logger
 import play.api.cache.Cache
@@ -35,9 +35,14 @@ class ApplicationController @Inject()(
                                        socialProviderRegistry: SocialProviderRegistry,
                                        clazzDAO: ClazzDAO,
                                        traineeDAO: TraineeDAO,
-                                       offerDAO: OfferDAO)
+                                       offerDAO: OfferDAO,
+                                       subscriptionDAO: SubscriptionDAO)
   extends Silhouette[Trainee, JWTAuthenticator] {
 
+
+  def test = UserAwareAction.async { implicit request =>
+    Future.successful(Ok(Json.toJson("test")))
+  }
 
   def offers = UserAwareAction.async { implicit request =>
     lazy val cacheExpire = Play.application().configuration().getString("cache.expire.get.offers").toInt
@@ -48,6 +53,7 @@ class ApplicationController @Inject()(
     }
     Future.successful(Ok(Json.toJson(offers)))
   }
+
   /**
    * Returns the trainee.
    *
@@ -120,11 +126,11 @@ class ApplicationController @Inject()(
 
 
 
-  def clazzesPersonalizedMy(page: Int, orderBy: Int, filter: String, startFrom: Long) = SecuredAction.async { implicit request =>
+  def clazzesPersonalizedMy(page: Int, orderBy: Int, filter: String, startFrom: Long, endAt:Long) = SecuredAction.async { implicit request =>
     val d = new GregorianCalendar()
     d.setTimeInMillis(startFrom)
     print("###############################"+d)
-    clazzDAO.listPersonalizedMy(page, 10, orderBy, "%" + filter + "%", request.identity.id.getOrElse(UUID.randomUUID()), new Timestamp(startFrom)).flatMap { pageClazzes =>
+    clazzDAO.listPersonalizedMy(page, 10, orderBy, "%" + filter + "%", request.identity.id.getOrElse(UUID.randomUUID()), new Timestamp(startFrom), new Timestamp(endAt)).flatMap { pageClazzes =>
       Future.successful(Ok(Json.toJson(pageClazzes)))
     }.recover {
       case ex: TimeoutException =>
@@ -152,9 +158,12 @@ class ApplicationController @Inject()(
     template match {
       case "clazzes" => Future.successful(Ok(views.html.me.clazzes()))
       case "myclazzes" => Future.successful(Ok(views.html.me.myclazzes()))
+      case "subscription" => Future.successful(Ok(views.html.me.subscription()))
       case "dashboard" => Future.successful(Ok(views.html.me.dashboard()))
       case "header" => Future.successful(Ok(views.html.me.header()))
       case "sidebar" => Future.successful(Ok(views.html.me.sidebar()))
+      case "profile" => Future.successful(Ok(views.html.me.profile()))
+      case "bill" => Future.successful(Ok(views.html.me.bill()))
       case _ => Future.successful(NotFound)
     }
   }

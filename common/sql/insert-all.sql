@@ -82,7 +82,7 @@ BEGIN
   END LOOP;
 
   -- Angebote auf dem Portal
-  INSERT INTO offer(name,nr_access,nr_access_same,price) VALUES ('small',4,2,59),('medium',6,4,89),('large',8,6,119);
+  INSERT INTO offer(name,nr_access,price, price_timestop) VALUES ('small',4,59,9),('medium',6,89,9),('large',8,119,9);
 
   --INSERT PARTNERS
   FOR i IN 1..nr_of_partners LOOP

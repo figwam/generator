@@ -27,9 +27,7 @@ app.run(function($state,$rootScope) {
    * @type {{}}
    */
   $rootScope.trainee = {};
-  $rootScope.clazzes = {};
-  $rootScope.clazzesSearchString = '';
-  $rootScope.formData = {};;
+  $rootScope.formData = {};
 
   // for the state handling
   $rootScope.$state = $state;
@@ -156,10 +154,28 @@ app.config(function ($urlRouterProvider, $stateProvider, $httpProvider, $authPro
           templateUrl: '/views/me/clazzes.html'
         }
       }})
+    .state('me.subscription', {
+      views: {
+        'content@': {
+          templateUrl: '/views/me/subscription.html'
+        }
+      }})
     .state('me.myclazzes', {
       views: {
         'content@': {
           templateUrl: '/views/me/myclazzes.html'
+        }
+      }})
+    .state('me.bill', {
+      views: {
+        'content@': {
+          templateUrl: '/views/me/bill.html'
+        }
+      }})
+    .state('me.profile', {
+      views: {
+        'content@': {
+          templateUrl: '/views/me/profile.html'
         }
       }})
 

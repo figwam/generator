@@ -9,7 +9,6 @@ menu.gymix=Was ist Gymix
 menu.advantages=Ihre Vorteile
 menu.pricing=Preise
 menu.studios=Studios
-menu.followus=Folge uns
 welcome.get.member=Sportkurs beginnen
 section.whoweare.title=Was ist Gymix?
 
@@ -29,13 +28,13 @@ section.studios.text=Im Moment kooperieren wir mit den Sportstudios der Region B
 section.pricing.title=Unsere Preise
 section.pricing.signup=Auswählen
 section.pricing.signup.title=Abo wählen
-section.pricing.small.id=c56f5b50-7622-4186-9f44-c8b6bea8109a
+section.pricing.small.id=faeb26e2-af36-4fc1-bf08-610cda85edd2
 section.pricing.small=Basis
 section.pricing.small.price=CHF 59
-section.pricing.medium.id=5325c71f-4e9e-4480-9f4d-b74a66a5b1ca
+section.pricing.medium.id=38b35d70-3e63-49b8-85cf-d1d687404b74
 section.pricing.medium=Standard
 section.pricing.medium.price=CHF 89
-section.pricing.large.id=58f2fea6-0e47-4caf-ab72-9a356f122457
+section.pricing.large.id=057fe1f6-ec72-4521-91f0-24fbc646ad94
 section.pricing.large=Premium
 section.pricing.large.price=CHF 119
 section.pricing.selected=Ausgewähltes Abo
@@ -49,9 +48,20 @@ section.pricing.basic.4=Jederzeit kündbar
 ###########
 # Simple words
 word.monthly=monatlich
+word.month=Monat
 word.change=ändern
 word.next=Weiter
 word.back=Zurück
+word.name=Name
+word.from=Von
+word.till=Bis
+word.delete=Löschen
+word.revert=Aufheben
+word.action=Verwalten
+word.price=Preis
+word.save=Speichern
+word.status=Status
+word.activate=Aktivieren
 
 
 view.index.title=Gymix
@@ -70,6 +80,8 @@ zip=PLZ
 state=Kanton
 city=Stadt
 email=E-Mail
+mobile=Mobile
+phone=Festnetz
 password=Passwort
 password.validate=Passwort Bestätigung
 already.a.member=Bereits registriert?
@@ -106,18 +118,26 @@ impressum=Impressum
 
 ######
 # Dashboard
+######
+# Sidebar
 my.dashboard=Mein Gymix
 my.dashboard.breadcrumb=Eingeloggt als
 my.profile=Mein Profil
 my.clazzes=Meine Sportkurse
-my.clazzes.no.history=Sie derzeit noch kein Sportkurs besucht
-my.clazzes.history=Sportkurse bereits im laufenden Abrechnungmonat besucht
-my.clazzes.no.current=Sie haben keine offenen Sportkurse
-my.clazzes.current=anstehende Sportkurse
 my.home=Meine Startseite
-my.abo=Mein Abo
+my.subscription=Mein Monatsabo
 all.clazzes=Sportkurse suchen
 my.bill=Meine Rechnungen
+# My clazzes
+my.clazzes.no.history=Sie haben derzeit noch kein Sportkurs besucht
+my.clazzes.history=Sportkurse Historie
+my.clazzes.no.current=Sie haben keine offenen Sportkurse
+my.clazzes.current=anstehende Sportkurse
+# My Subscription
+my.subscription.timestop.add=Abostopp
+my.subscription.timestop=Abostopp
+my.subscription.cancel=Kündigen
+my.subscription.cancelled=Gekündigt
 
 
 

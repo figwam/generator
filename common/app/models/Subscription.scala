@@ -8,9 +8,10 @@ case class Subscription(
                          id: Option[UUID],
                          isActive: Boolean = true,
                          createdOn: Calendar,
+                         period: Period,
                          canceledOn: Option[Calendar] = None,
                          offer: Offer,
-                         timestop: Option[Timestop] = None)
+                         timestop: Option[List[Timestop]] = None)
 
 
 /**

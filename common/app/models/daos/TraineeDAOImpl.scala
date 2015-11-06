@@ -67,13 +67,15 @@ class TraineeDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigPro
               subscription.id,
               subscription.isActive,
               asCalendar(subscription.createdOn),
+              calculatePeriods(asCalendar(subscription.createdOn)).last,
               subscription.canceledOn match { case Some(c) => Some(asCalendar(c)) case _ => None},
               Offer(
                 offer.id,
                 offer.name,
                 offer.nrAccess,
-                offer.nrAccessSame,
-                offer.price)
+                offer.price,
+                offer.priceTimestop,
+                asDatetime(offer.createdOn))
             ))
           )
       }

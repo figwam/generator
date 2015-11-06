@@ -14,7 +14,7 @@
         <article class="search-result row" dir-paginate="(key, item) in myClazzes.items | itemsPerPage: 10" total-items="myTotalClazzes" current-page="pagination.current">
             <hr>
             <div class="col-xs-12 col-sm-12 col-md-3">
-                <a href="#" title="{{item.name}}" class="thumbnail"><img src="{{item.avatarurl}}" alt="Lorem ipsum" /></a>
+                <a href="#" title="{{item.name}}" class="thumbnail"><img src="{{item.avatarurl}}" alt="" /></a>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-2">
                 <ul class="meta-search">
@@ -36,6 +36,36 @@
             </div>
         </article>
         <dir-pagination-controls boundary-links="true" on-page-change="myClazzesPageChanged(newPageNumber,trainee.id)" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
+    </div>
+
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 ng-if="myClazzesHistory.total > 0"class="lead"><strong class="text-danger">
+                    {{myClazzesHistory.total}}&nbsp;</strong>@Messages("my.clazzes.history")</h2>
+                <h2 ng-if="myClazzesHistory.total <= 0"class="lead">@Messages("my.clazzes.no.history")</h2>
+            </div>
+        </div><!-- /.row -->
+
+
+        <article class="search-result row" dir-paginate="(key, item) in myClazzesHistory.items | itemsPerPage: 10" total-items="myTotalClazzesHistory" current-page="pagination.current">
+            <hr>
+            <div class="col-xs-12 col-sm-12 col-md-3">
+                <a href="#" title="{{item.name}}" class="thumbnail"><img src="{{item.avatarurl}}" alt="" /></a>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-2">
+                <ul class="meta-search">
+                    <li><i class="fa fa-calendar"></i> <span>{{item.startFrom  | date: 'EEE, dd MMM'}}</span></li>
+                    <li><i class="fa fa-clock-o"></i> <span>
+                        {{item.startFrom  | date: 'HH:mm'}}-{{item.endAt | date: 'HH:mm'}}</span></li>
+                   </ul>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-7 excerpet">
+                <h3><a href="#" title="">{{item.name}}</a></h3>
+                <p>{{item.description}}</p>
+            </div>
+        </article>
+        <dir-pagination-controls boundary-links="true" on-page-change="myClazzesHistoryPageChanged(newPageNumber,trainee.id)" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
     </div>
 </div>
 

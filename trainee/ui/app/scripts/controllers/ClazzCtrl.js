@@ -6,8 +6,12 @@
  * The clazz controller.
  *
  */
-app.controller('ClazzCtrl', ['$rootScope', '$scope', '$http', '$location', '$templateCache','ClazzFactory', function($rootScope, $scope, $http, $templateCache, $location, ClazzFactory) {
+app.controller('ClazzCtrl', ['$scope', '$rootScope', '$http', function($scope, $rootScope, $http) {
 
+
+  $scope.clazzesSearchString = $rootScope.clazzesSearchString
+  $rootScope.clazzesSearchString = ''
+  $scope.clazzes = {};
   $scope.totalClazzes = 0;
   $scope.clazzesPerPage = 10;
   getResultsPage(1)
@@ -21,16 +25,16 @@ app.controller('ClazzCtrl', ['$rootScope', '$scope', '$http', '$location', '$tem
 
   function getResultsPage(pageNumber) {
     //play start paging from 0 --> (pageNumber-1)
-    $http.get('/clazzes?p='+(pageNumber-1)+'&s=1&f='+($rootScope.clazzesSearchString == null ? '':$rootScope.clazzesSearchString))
+    $http.get('/clazzes?p='+(pageNumber-1)+'&s=1&f='+($scope.clazzesSearchString == null ? '':$scope.clazzesSearchString))
       .then(function(result) {
-        $rootScope.clazzes = result.data
+        $scope.clazzes = result.data
         $scope.totalClazzes = result.data.total
       });
   }
 
   // calling our submit function.
   $scope.submitSearch = function () {
-    $rootScope.clazzesSearchString = $scope.searchString
+    $scope.clazzesSearchString = $scope.searchString
     getResultsPage(1);
   };
 

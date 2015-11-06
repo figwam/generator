@@ -1,12 +1,11 @@
 package models.daos
 
-import java.sql.Timestamp
-import java.util.{GregorianCalendar, Calendar, UUID}
+import java.util.UUID
 import javax.inject.Inject
 
-import models.{Offer, Subscription, ClazzDefinition, Clazz}
-import play.Logger
+import models._
 import play.api.db.slick.DatabaseConfigProvider
+import play.libs.Json
 
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -14,7 +13,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import utils.Utils._
 trait SubscriptionDAO  {
 
-  def list(): Future[List[Subscription]]
+  //def listByTrainee(idTrainee: UUID): Future[List[String]]
 
 }
 
@@ -22,12 +21,34 @@ class SubscriptionDAOImpl @Inject() (protected val dbConfigProvider: DatabaseCon
   extends SubscriptionDAO with DAOSlick {
   import driver.api._
 
-  override def list(): Future[List[Subscription]] = {
-    /*
-        val query = slickOffers
-          .join(slickSubscriptions).on(_.id === _.idOffer)
-          .join(slickTimeStops).on(_._2.id === _.idSubscription)
-          .result
+  /*
+   def listByTrainee(): Future[List[String]] = {
+
+
+        val query = for {
+          subs <- slickSubscriptions
+            .join(slickOffers).on(_.idOffer === _.id)
+            //.joinLeft(slickTimeStops).on(_._1.id === _.idSubscription)
+            //.groupBy(_.isActive)
+        } yield (subs)
+
+        db.run(query.result).map { result =>
+          result.map {
+            case (s) => {
+              println("--->"+s)
+              /*val sub = Subscription(s._1.id,s._1.isActive,asCalendar(s._1.createdOn),None,
+                Offer(s._2.id, s._2.name, s._2.nrAccess, s._2.nrAccessSame, s._2.price, asDatetime(s._2.createdOn)),
+                Some(List(Timestop(t._1.id,asCalendar(t._1.stopOn), t._1.reason, asCalendar(t._1.createdOn)))))
+
+              println("--->"+sub.id)*/
+            }
+              //print("-SU->"+s._1.id); println("-TS->"+ts._1.id+"---"+ts._1.idSubscription);
+          }
+        }
+     Future(List("aaa"))
+
+
+
 
         val action = (for {
           result <- query
@@ -39,6 +60,10 @@ class SubscriptionDAOImpl @Inject() (protected val dbConfigProvider: DatabaseCon
             }
           }
 
+        val m = Map(Long, Int)
+    m.++()
+        m.+(Tuple2(1L,2))
+
         val query = for {
           dbSubscription <- slickSubscriptions.filter(_.isActive === true)
           dbTimestop <- slickTimeStops.filter(_.idSubscription === dbSubscription.id)
@@ -47,12 +72,15 @@ class SubscriptionDAOImpl @Inject() (protected val dbConfigProvider: DatabaseCon
         db.run(query.result).map { result =>
           result.toList.map {
             case (s, t, offer) =>
-              Subscription(s.id,s.isActive,asCalendar(s.createdOn),s.canceledOn match {case t => Some(asCalendar(t.get)) case _ => None},
-                Offer(offer.id, offer.name, offer.nrAccess, offer.nrAccessSame, offer.price),
-                t.)
+              m + "a"
+                Subscription(s.id,s.isActive,asCalendar(s.createdOn),s.canceledOn match {case t => Some(asCalendar(t.get)) case _ => None},
+                  Offer(offer.id, offer.name, offer.nrAccess, offer.nrAccessSame, offer.price),
+                  Some(List(Timestop(t.id,asCalendar(t.stopOn), t.reason, asCalendar(t.createdOn)))))
+
           }
         }
-    */
 
-  }
+
+
+  } */
 }

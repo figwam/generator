@@ -9,7 +9,7 @@
         <div class="col-md-6">
             <form name="form" id="search-form" ng-submit="submitSearch()">
                 <div class="input-group">
-                    <input ng-model="searchString" type="text" class="form-control" placeholder="@Messages("search.clazz")">
+                    <input ng-model="searchString" type="text" class="form-control" placeholder="@Messages("search.clazz")" value="{{clazzesSearchString}}">
                     <span class="input-group-btn">
                         <button class="btn btn-success" type="submit" value="submitSearch" type="button">@Messages("search.go")</button>
                     </span>

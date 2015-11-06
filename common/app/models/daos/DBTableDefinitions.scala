@@ -335,21 +335,21 @@ trait DBTableDefinitions {
     createdOn: java.sql.Timestamp,
     updatedOn: java.sql.Timestamp,
     name: String, nrAccess: Short,
-    nrAccessSame: Short,
     price: scala.math.BigDecimal,
+    priceTimestop: scala.math.BigDecimal,
     isDeleted: Boolean = false
     )
 
 
   class Offers(_tableTag: Tag) extends Table[DBOffer](_tableTag, "offer") {
-    def * = (id, createdOn, updatedOn, name, nrAccess, nrAccessSame, price, isDeleted) <> (DBOffer.tupled, DBOffer.unapply)
+    def * = (id, createdOn, updatedOn, name, nrAccess, price, priceTimestop, isDeleted) <> (DBOffer.tupled, DBOffer.unapply)
     val id: Rep[Option[UUID]] = column[Option[UUID]]("id", O.PrimaryKey, O.AutoInc)
     val createdOn: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("created_on")
     val updatedOn: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("updated_on")
     val name: Rep[String] = column[String]("name")
     val nrAccess: Rep[Short] = column[Short]("nr_access")
-    val nrAccessSame: Rep[Short] = column[Short]("nr_access_same")
     val price: Rep[scala.math.BigDecimal] = column[scala.math.BigDecimal]("price")
+    val priceTimestop: Rep[scala.math.BigDecimal] = column[scala.math.BigDecimal]("price_timestop")
     val isDeleted: Rep[Boolean] = column[Boolean]("is_deleted", O.Default(false))
   }
 

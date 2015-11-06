@@ -6,8 +6,10 @@
  * The clazz controller.
  *
  */
-app.controller('ClazzMeCtrl', ['$rootScope', '$state', '$scope', '$http', '$templateCache', 'AlertFactory', function($rootScope, $state, $scope, $http, $templateCache, AlertFactory) {
+app.controller('ClazzMeCtrl', ['$state', '$scope', '$http', '$templateCache', 'AlertFactory', function($state, $scope, $http, $templateCache, AlertFactory) {
 
+  $scope.clazzes = {};
+  $scope.clazzesSearchString = '';
   $scope.totalClazzes = 0;
   $scope.clazzesPerPage = 10;
   getResultsPage(1)
@@ -23,6 +25,14 @@ app.controller('ClazzMeCtrl', ['$rootScope', '$state', '$scope', '$http', '$temp
     myClazzesCurrent: 1
   };
 
+  $scope.myTotalClazzesHistory = 0;
+  $scope.myClazzesHistoryPerPage = 10;
+  $scope.myClazzesHistory = {};
+  getMyClazzesHistoryResultsPage(1)
+  $scope.myClazzesHistoryPagination = {
+    myClazzesHistory: 1
+  };
+
   $scope.pageChanged = function(newPage) {
     getResultsPage(newPage);
   };
@@ -30,9 +40,9 @@ app.controller('ClazzMeCtrl', ['$rootScope', '$state', '$scope', '$http', '$temp
 
   function getResultsPage(pageNumber) {
     //play start paging from 0 --> (pageNumber-1)
-    $http.get('/clazzes/trainees/me?p='+(pageNumber-1)+'&s=1&f='+($rootScope.clazzesSearchString == null ? '':$rootScope.clazzesSearchString))
+    $http.get('/clazzes/trainees/me?p='+(pageNumber-1)+'&s=1&f='+($scope.clazzesSearchString == null ? '':$scope.clazzesSearchString))
       .then(function(result) {
-        $rootScope.clazzes = result.data
+        $scope.clazzes = result.data
         $scope.totalClazzes = result.data.total
       });
   }
@@ -51,6 +61,20 @@ app.controller('ClazzMeCtrl', ['$rootScope', '$state', '$scope', '$http', '$temp
 
   }
 
+  $scope.myClazzesHistoryPageChanged = function(newPage) {
+    getMyClazzesHistoryResultsPage(newPage);
+  };
+
+  function getMyClazzesHistoryResultsPage(pageNumber) {
+    //play start paging from 0 --> (pageNumber-1)
+    $http.get('/trainees/me/clazzes?p='+(pageNumber-1)+'&s=1&f=&ea='+new Date().getTime())
+      .then(function(result) {
+        $scope.myClazzesHistory = result.data
+        $scope.myTotalClazzesHistory = result.data.total
+      });
+
+  }
+
   $scope.book = function(idClazz) {
     var body={"idClazz":idClazz};
     $http({
@@ -63,6 +87,8 @@ app.controller('ClazzMeCtrl', ['$rootScope', '$state', '$scope', '$http', '$temp
         $scope.status = response.status;
         $scope.data = response.data;
         getResultsPage($scope.pagination.current)
+        getMyClazzesResultsPage($scope.myClazzesPagination.myClazzesCurrent)
+        getMyClazzesHistoryResultsPage($scope.myClazzesHistoryPagination.myClazzesHistory)
         AlertFactory.addAlert("jdsgkfdakhjfgslk","success")
       }, function(response) {
         $scope.data = response.data || "Request failed";
@@ -79,6 +105,8 @@ app.controller('ClazzMeCtrl', ['$rootScope', '$state', '$scope', '$http', '$temp
         $scope.status = response.status;
         $scope.data = response.data;
         getResultsPage($scope.pagination.current)
+        getMyClazzesResultsPage($scope.myClazzesPagination.myClazzesCurrent)
+        getMyClazzesHistoryResultsPage($scope.myClazzesHistoryPagination.myClazzesHistory)
         AlertFactory.addAlert("jdsgkfdakhjfgslk","danger")
       }, function(response) {
         $scope.data = response.data || "Request failed";
@@ -88,7 +116,7 @@ app.controller('ClazzMeCtrl', ['$rootScope', '$state', '$scope', '$http', '$temp
 
 
   $scope.submitSearch = function(idTrainee){
-    $rootScope.clazzesSearchString = $scope.searchString
+    $scope.clazzesSearchString = $scope.searchString
     if ($state.current.name != 'me.clazzes') $state.go('me.clazzes')
     getResultsPage(1);
   };

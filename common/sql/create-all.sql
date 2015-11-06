@@ -182,6 +182,7 @@ CREATE TABLE public.offer(
 	name text NOT NULL,
 	nr_access smallint NOT NULL,
 	price decimal(5,2) NOT NULL,
+	price_timestop decimal(5,2) NOT NULL,
 	is_deleted bool NOT NULL DEFAULT false
 );
 
